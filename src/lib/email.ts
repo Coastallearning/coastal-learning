@@ -22,7 +22,11 @@ function wrap(title: string, body: string) {
 async function send(to: string | string[], subject: string, html: string) {
   const r = client();
   if (!r) { console.warn("[email] RESEND_API_KEY not set; would send:", subject, "to", to); return; }
-  try { await r.emails.send({ from: FROM, to, subject, html }); } catch (e) { console.error("[email] failed", e); }
+  try {
+    const { data, error } = await r.emails.send({ from: FROM, to, subject, html });
+    if (error) console.error("[email] rejected:", subject, "->", to, JSON.stringify(error));
+    else console.log("[email] sent:", subject, "->", to, data?.id);
+  } catch (e) { console.error("[email] failed", subject, e); }
 }
 
 export async function emailBookingRequested(b: { parent_name: string; parent_email: string; child_name: string; child_grade: string; when: string; type: string; format: string; notes?: string | null }) {
