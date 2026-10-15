@@ -3,7 +3,7 @@ import { NextResponse, type NextRequest } from "next/server";
 import { SUPABASE_URL, SUPABASE_ANON } from "@/lib/supabase/env";
 
 /** Refreshes the Supabase session on every request and guards /portal and /admin. */
-export async function middleware(request: NextRequest) {
+export async function proxy(request: NextRequest) {
   let response = NextResponse.next({ request });
   const supabase = createServerClient(
     SUPABASE_URL,
