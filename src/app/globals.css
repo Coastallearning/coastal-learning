@@ -88,7 +88,8 @@ textarea{min-height:80px;resize:vertical}
 }
 
 /* hero */
-.hero{position:relative;overflow:hidden;background:linear-gradient(180deg,var(--sky) 0%,var(--bg) 70%)}
+.hero{position:relative;overflow:hidden;background:linear-gradient(180deg,var(--sky) 0%,var(--bg) 72%)}
+.hero .wrap{padding-block:clamp(3rem,7vw,5.5rem)}
 .hero .wrap{position:relative;display:grid;gap:2rem;align-items:center;grid-template-columns:1.2fr .8fr}
 .hero-logo{width:min(320px,70vw);justify-self:center;filter:drop-shadow(0 12px 24px rgba(31,55,100,.18))}
 .hero-logo svg{width:100%;height:auto;display:block}
@@ -96,8 +97,17 @@ textarea{min-height:80px;resize:vertical}
 .cta-row{display:flex;flex-wrap:wrap;gap:.8rem;margin-top:.5rem}
 .pill-row{display:flex;flex-wrap:wrap;gap:.5rem .9rem;font-size:.8rem;letter-spacing:.08em;text-transform:uppercase;font-weight:700;color:var(--ink);margin-top:1rem}
 .pill-row span::before{content:"♡";color:var(--sea-deep);margin-right:.4rem}
-.pebble{position:absolute;pointer-events:none;opacity:.85}
-@media (max-width:760px){.hero .wrap{grid-template-columns:1fr}.hero-logo{order:-1;width:190px}.pebble{width:70px!important;opacity:.45}}
+/* watercolor artwork lifted from Lindsay's flyers, feathered so it melts into the page */
+.deco{position:relative;overflow:hidden}
+.art{position:absolute;pointer-events:none;user-select:none;z-index:0;max-width:none}
+.art-tl{left:-40px;top:-30px;width:clamp(180px,26vw,340px)}
+.art-tr{right:-30px;top:-20px;width:clamp(170px,24vw,330px)}
+.art-bl{left:-30px;bottom:-40px;width:clamp(170px,22vw,300px)}
+.art-br{right:-30px;bottom:-40px;width:clamp(160px,20vw,270px)}
+.art-r-mid{right:-20px;top:50%;transform:translateY(-50%);width:clamp(120px,14vw,190px)}
+.hero>.wrap,.deco>.wrap{position:relative;z-index:1}
+@media (max-width:760px){.art{opacity:.75}.art-tl,.art-tr{width:150px}.art-bl,.art-br{width:140px}.art-r-mid{display:none}}
+@media (max-width:760px){.hero .wrap{grid-template-columns:1fr}.hero-logo{order:-1;width:200px}}
 
 .pillars{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
 .pillar{text-align:center;padding:1.2rem}

@@ -15,9 +15,10 @@ export default function Home() {
   return (
     <>
       <section className="hero">
-        <svg className="pebble" style={{ left: -30, top: 40, width: 150 }} viewBox="0 0 100 100" aria-hidden="true"><path fill="var(--sea)" d="M48 4c22-5 48 10 50 34 2 25-16 56-44 58C26 98 2 78 2 50 2 26 24 9 48 4z" /></svg>
-        <svg className="pebble" style={{ right: -20, top: 120, width: 110 }} viewBox="0 0 100 100" aria-hidden="true"><path fill="var(--glass)" opacity=".55" d="M52 2c26 0 46 22 46 48s-18 48-46 48S4 76 4 50 26 2 52 2z" /></svg>
-        <svg className="pebble" style={{ right: "14%", bottom: -30, width: 90 }} viewBox="0 0 100 100" aria-hidden="true"><path fill="var(--sage-light)" d="M40 6c30-10 60 12 58 42-2 28-26 50-52 50S0 78 2 50C4 28 18 13 40 6z" /></svg>
+        <img className="art art-tl" src="/art/glass-leaves.png" alt="" aria-hidden="true" />
+        <img className="art art-tr" src="/art/wash-gulls.png" alt="" aria-hidden="true" />
+        <img className="art art-bl" src="/art/shell-glass.png" alt="" aria-hidden="true" />
+        <img className="art art-br" src="/art/starfish.png" alt="" aria-hidden="true" />
         <div className="wrap">
           <div className="stack">
             <span className="eyebrow">Personalized support for early childhood &amp; elementary students</span>
@@ -42,7 +43,8 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="band" id="about">
+      <section className="band deco" id="about">
+        <img className="art art-r-mid" src="/art/seaweed.png" alt="" aria-hidden="true" />
         <div className="wrap about">
           <img className="portrait" src="/headshot.jpg" alt="Lindsay Gagnon smiling on a beach" />
           <div>
@@ -77,7 +79,9 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="band" id="how">
+      <section className="band deco" id="how">
+        <img className="art art-bl" src="/art/glass-left.png" alt="" aria-hidden="true" />
+        <img className="art art-br" src="/art/glass-right.png" alt="" aria-hidden="true" />
         <div className="wrap">
           <div className="center stack" style={{ justifyItems: "center", marginBottom: "2rem" }}>
             <span className="eyebrow">How it works</span>
@@ -102,7 +106,8 @@ export default function Home() {
         </div>
       </section>
 
-      <section id="faq">
+      <section id="faq" className="deco">
+        <img className="art art-bl" src="/art/shell-left.png" alt="" aria-hidden="true" />
         <div className="wrap narrow">
           <div className="center stack" style={{ justifyItems: "center", marginBottom: "1.5rem" }}>
             <span className="eyebrow">Questions parents ask</span>

@@ -16,11 +16,8 @@ export default function Logo({ size = 320, compact = false, className = "", titl
       <circle cx="200" cy="200" r="196" fill="#ffffff" />
       <circle cx="200" cy="200" r="194" fill="none" stroke={navy} strokeWidth="3.5" />
       <circle cx="200" cy="200" r="184" fill="none" stroke={sage} strokeWidth="1.6" />
-      {/* sea glass */}
-      <path d="M132 84c12-24 44-32 60-16 12 12 8 36-10 46-16 9-40 8-50-4-9-8-8-16 0-26z" fill="url(#cl-g-green)" />
-      <path d="M176 52c10-26 46-36 64-16 14 16 12 44-6 60-18 14-46 12-58-4-10-12-8-26 0-40z" fill="url(#cl-g-blue)" />
-      <path d="M240 82c14-18 42-20 54-4 10 14 4 34-12 42-16 8-36 6-46-6-8-8-6-18 4-32z" fill="url(#cl-g-aqua)" />
-      <path d="M190 64c8-8 20-12 28-8" stroke="#ffffff" strokeOpacity=".65" strokeWidth="4" strokeLinecap="round" fill="none" />
+      {/* sea glass: the painted pebbles from Lindsay's flyer */}
+      <image href="/art/pebbles.png" x="110" y="38" width="180" height="78" preserveAspectRatio="xMidYMid meet" />
       {/* wordmark */}
       <text x="200" y="160" textAnchor="middle" fontFamily="'Cormorant Garamond', Georgia, serif" fontSize="56" fontWeight="600" fill={navy} letterSpacing="1">Coastal</text>
       <text x="200" y="203" textAnchor="middle" fontFamily="'Cormorant Garamond', Georgia, serif" fontSize="46" fontWeight="500" fill={sage} letterSpacing="4">Learning</text>
