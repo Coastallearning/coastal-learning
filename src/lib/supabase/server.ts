@@ -1,9 +1,8 @@
 import { createServerClient } from "@supabase/ssr";
 import { createClient as createBareClient } from "@supabase/supabase-js";
 import { cookies } from "next/headers";
+import { SUPABASE_URL as URL, SUPABASE_ANON as ANON, SUPABASE_SECRET } from "./env";
 
-const URL = process.env.NEXT_PUBLIC_SUPABASE_URL ?? "http://localhost:54321";
-const ANON = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ?? "anon";
 
 /** Supabase client bound to the signed-in user's cookies (RLS applies). */
 export async function createClient() {
@@ -26,7 +25,7 @@ export async function createClient() {
 
 /** Service-role client. Server only. Bypasses RLS: use for admin tasks such as inviting families. */
 export function createAdminClient() {
-  return createBareClient(URL, process.env.SUPABASE_SERVICE_ROLE_KEY ?? ANON, {
+  return createBareClient(URL, SUPABASE_SECRET, {
     auth: { persistSession: false, autoRefreshToken: false },
   });
 }

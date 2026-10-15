@@ -1,9 +1,7 @@
 "use client";
 import { createBrowserClient } from "@supabase/ssr";
+import { SUPABASE_URL, SUPABASE_ANON } from "./env";
 
 export function createClient() {
-  return createBrowserClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL ?? "http://localhost:54321",
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ?? "anon",
-  );
+  return createBrowserClient(SUPABASE_URL, SUPABASE_ANON);
 }
