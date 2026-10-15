@@ -17,7 +17,7 @@ export default async function LoginPage({ searchParams }: { searchParams: Promis
           <span className="eyebrow">Parent portal</span>
           <h2 style={{ marginBottom: ".4rem" }}>Family sign in</h2>
           <p className="hint" style={{ marginBottom: "1.2rem" }}>Session briefings, saved work, progress by skill, upcoming sessions and messages with Lindsay.</p>
-          {sp.error === "link" && <p className="err">That sign-in link expired. Request a new one below.</p>}
+          {sp.error === "link" && <p className="err">That sign-in link has already been used or has expired. Links last 24 hours and work once; request a fresh one below.</p>}
           <ActionForm action={signIn} resetOnSuccess={false}>
             <input type="hidden" name="next" value={sp.next ?? ""} />
             <label>Email<input name="email" id="email" type="email" autoComplete="username" required /></label>

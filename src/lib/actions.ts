@@ -66,7 +66,7 @@ export async function signIn(form: FormData): Promise<Result> {
 export async function sendMagicLink(form: FormData): Promise<Result> {
   const supabase = await createClient();
   const site = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
-  const { error } = await supabase.auth.signInWithOtp({ email: str(form, "email").toLowerCase(), options: { shouldCreateUser: false, emailRedirectTo: `${site}/auth/callback` } });
+  const { error } = await supabase.auth.signInWithOtp({ email: str(form, "email").toLowerCase(), options: { shouldCreateUser: false, emailRedirectTo: `${site}/portal` } });
   if (error) return { ok: false, error: "We couldn't find an account for that email." };
   return { ok: true };
 }
@@ -167,7 +167,7 @@ export async function createFamily(form: FormData): Promise<Result> {
   if (existing) parentId = existing.id;
   else {
     const site = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
-    const { data: inv, error: ie } = await admin.auth.admin.inviteUserByEmail(parent_email, { data: { full_name: parent_name }, redirectTo: `${site}/auth/callback?next=/welcome` });
+    const { data: inv, error: ie } = await admin.auth.admin.inviteUserByEmail(parent_email, { data: { full_name: parent_name }, redirectTo: `${site}/welcome` });
     if (ie) return { ok: false, error: `Family created but the invite failed: ${ie.message}` };
     parentId = inv.user.id;
     await admin.from("profiles").update({ full_name: parent_name, email: parent_email }).eq("id", parentId);
