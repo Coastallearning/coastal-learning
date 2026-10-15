@@ -1,6 +1,6 @@
 import { Resend } from "resend";
 
-const FROM = process.env.EMAIL_FROM ?? "Coastal Learning <onboarding@resend.dev>";
+const FROM = process.env.EMAIL_FROM ?? "Coastal Learning <hello@coastal-learning.com>";
 const TUTOR = process.env.TUTOR_EMAIL ?? "lindsaykgagnon@gmail.com";
 const SITE = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
 
