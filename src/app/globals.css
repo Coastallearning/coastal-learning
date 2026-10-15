@@ -75,7 +75,7 @@ textarea{min-height:80px;resize:vertical}
 .site-header{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
 .nav{display:flex;align-items:center;gap:1rem;padding-block:.6rem}
 .brand{display:flex;align-items:center;gap:.7rem;text-decoration:none;color:var(--ink)}
-.brand img{width:48px;height:48px}
+.brand svg{width:48px;height:48px;flex:none}
 .brand b{font-family:var(--display);font-size:1.35rem;font-weight:700;line-height:1;display:block}
 .brand small{display:block;font-family:var(--script);color:var(--sage);font-size:.95rem}
 .links{margin-left:auto;display:flex;gap:1.2rem;align-items:center}
@@ -90,7 +90,8 @@ textarea{min-height:80px;resize:vertical}
 /* hero */
 .hero{position:relative;overflow:hidden;background:linear-gradient(180deg,var(--sky) 0%,var(--bg) 70%)}
 .hero .wrap{position:relative;display:grid;gap:2rem;align-items:center;grid-template-columns:1.2fr .8fr}
-.hero-logo{width:min(320px,70vw);height:auto;justify-self:center;filter:drop-shadow(0 12px 24px rgba(31,55,100,.18))}
+.hero-logo{width:min(320px,70vw);justify-self:center;filter:drop-shadow(0 12px 24px rgba(31,55,100,.18))}
+.hero-logo svg{width:100%;height:auto;display:block}
 .hero .sub{font-family:var(--script);font-size:clamp(1.5rem,3vw,2.1rem);color:var(--sage);line-height:1.2}
 .cta-row{display:flex;flex-wrap:wrap;gap:.8rem;margin-top:.5rem}
 .pill-row{display:flex;flex-wrap:wrap;gap:.5rem .9rem;font-size:.8rem;letter-spacing:.08em;text-transform:uppercase;font-weight:700;color:var(--ink);margin-top:1rem}

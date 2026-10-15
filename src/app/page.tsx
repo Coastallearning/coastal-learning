@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Logo from "@/components/Logo";
 
 const Book = () => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"><path d="M3 5h6a3 3 0 0 1 3 3v12a2 2 0 0 0-2-2H3zM21 5h-6a3 3 0 0 0-3 3v12a2 2 0 0 1 2-2h7z" /></svg>;
 const Sprout = () => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22V10M12 10c0-4 3-7 8-7 0 5-3 8-8 7zM12 14c0-3-2-6-7-6 0 4 2 7 7 6z" /></svg>;
@@ -29,7 +30,7 @@ export default function Home() {
             </div>
             <div className="pill-row"><span>Now accepting new students</span><span>In-home &amp; online</span><span>Pre-K to grade 6</span></div>
           </div>
-          <img className="hero-logo" src="/logo.png" alt="Coastal Learning with Lindsay Gagnon. Building confidence, inspiring learning." />
+          <div className="hero-logo"><Logo size={320} /></div>
         </div>
       </section>
 

@@ -35,7 +35,7 @@ export async function emailBookingRequested(b: { parent_name: string; parent_ema
     ${b.notes ? `<p><i>“${b.notes}”</i></p>` : ""}
     <p><a href="${SITE}/admin/bookings" style="background:#1f3764;color:#fff;padding:10px 18px;border-radius:999px;text-decoration:none">Confirm or decline</a></p>`));
   await send(b.parent_email, `We received your request, ${b.parent_name}`, wrap("Thanks for reaching out", `
-    <p>Your request for a <b>${b.type}</b> for ${b.child_name} on <b>${b.when}</b> (${b.format}) is on Lindsay's calendar, pending her confirmation. She confirms every request personally within one business day.</p>
+    <p>Your request for a <b>${b.type}</b> for ${b.child_name} on <b>${b.when}</b> (${b.format}) is on Lindsay's calendar, pending her confirmation. She confirms every request personally the same day.</p>
     <p>Reply to this email any time with questions.</p>`));
 }
 

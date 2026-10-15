@@ -38,7 +38,7 @@ export default function BookingCalendar({ slotsByType }: { slotsByType: Record<s
       <div className="card confirm" style={{ maxWidth: 560, margin: "0 auto" }}>
         <div className="big">You&apos;re on the calendar, pending Lindsay&apos;s confirmation.</div>
         <p>{done}</p>
-        <p className="hint">We emailed you a copy. Lindsay will confirm within one business day, with directions or your session link.</p>
+        <p className="hint">We emailed you a copy. Lindsay will confirm the same day, with directions or your session link.</p>
         <button className="btn ghost sm" type="button" onClick={() => { setDone(null); setSlot(null); }}>Book another time</button>
       </div>
     );
@@ -91,7 +91,7 @@ export default function BookingCalendar({ slotsByType }: { slotsByType: Record<s
           <label>Anything Lindsay should know?<textarea name="notes" id="notes" placeholder="Goals, what school has shared, what your child loves..." /></label>
           {err && <p className="err" role="alert">{err}</p>}
           <button className="btn" type="submit" disabled={pending}>{pending ? "Sending..." : "Request this time"}</button>
-          <p className="note">Nothing is charged online. You&apos;ll get an email copy right away and a confirmation from Lindsay within one business day.</p>
+          <p className="note">Nothing is charged online. You&apos;ll get an email copy right away and a confirmation from Lindsay the same day.</p>
         </form>
       </div>
     </div>

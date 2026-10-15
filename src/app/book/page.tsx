@@ -22,7 +22,7 @@ export default async function BookPage() {
         <div className="center stack" style={{ justifyItems: "center", marginBottom: "2rem" }}>
           <span className="eyebrow">Schedule</span>
           <h2>Pick a time that works for your family</h2>
-          <p className="lead">These are Lindsay&apos;s real open times for the next three weeks. Choose a day, then a time. She confirms every request personally within one business day.</p>
+          <p className="lead">These are Lindsay&apos;s open times for the next three weeks. Choose a day, then a time. She confirms every request personally the same day.</p>
         </div>
         <BookingCalendar slotsByType={slotsByType} />
       </div>

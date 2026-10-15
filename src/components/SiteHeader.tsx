@@ -1,6 +1,7 @@
 "use client";
 import Link from "next/link";
 import { useState } from "react";
+import Logo from "@/components/Logo";
 
 type Profile = { role: "tutor" | "parent"; full_name: string } | null;
 
@@ -11,7 +12,7 @@ export default function SiteHeader({ profile }: { profile: Profile }) {
     <header className="site-header">
       <div className="wrap nav">
         <Link className="brand" href="/" onClick={close}>
-          <img src="/logo-sm.png" alt="Coastal Learning logo" />
+          <Logo size={48} compact />
           <span><b>Coastal Learning</b><small>with Lindsay Gagnon</small></span>
         </Link>
         <button className="menu-btn" aria-expanded={open} aria-label="Open menu" onClick={() => setOpen(!open)}>Menu</button>
