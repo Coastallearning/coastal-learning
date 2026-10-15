@@ -67,3 +67,4 @@ Every table has row-level security. Parents can read only their own family's row
 - Payments: a Stripe link per package can be added to the confirmation email; nothing in the code assumes a price.
 - Video: Jitsi is free and needs no account. If Lindsay prefers Zoom or Google Meet, store the link in `bookings.video_room` and change the iframe in `TutoringRoom.tsx`.
 - Reminders: a daily Vercel cron that emails tomorrow's families is a small addition to `src/lib/email.ts`.
+
