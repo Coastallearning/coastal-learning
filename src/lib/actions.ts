@@ -16,6 +16,18 @@ async function requireTutor() {
 }
 
 /* ---------------- public booking ---------------- */
+/** Catches the common mistyped email domains (gmail.con, gmial.com, yahoo.co ...) before a confirmation bounces. */
+const DOMAIN_FIXES: Record<string, string> = {
+  "gmail.con": "gmail.com", "gmail.co": "gmail.com", "gmail.cm": "gmail.com", "gmail.om": "gmail.com", "gmial.com": "gmail.com", "gmai.com": "gmail.com", "gamil.com": "gmail.com", "gnail.com": "gmail.com", "gmail.comm": "gmail.com",
+  "yahoo.con": "yahoo.com", "yahoo.co": "yahoo.com", "yaho.com": "yahoo.com", "hotmail.con": "hotmail.com", "hotmail.co": "hotmail.com", "hotmial.com": "hotmail.com",
+  "outlook.con": "outlook.com", "icloud.con": "icloud.com", "icloud.co": "icloud.com", "aol.con": "aol.com", "comcast.net.": "comcast.net", "comcast.ne": "comcast.net",
+};
+function emailTypo(email: string): string | null {
+  const domain = email.split("@")[1] ?? "";
+  const fix = DOMAIN_FIXES[domain];
+  return fix ? email.replace(/@.*$/, "@" + fix) : null;
+}
+
 export async function requestBooking(form: FormData): Promise<Result> {
   const supabase = await createClient();
   const starts_at = str(form, "starts_at");
@@ -25,6 +37,8 @@ export async function requestBooking(form: FormData): Promise<Result> {
   const parent_phone = str(form, "parent_phone"), child_name = str(form, "child_name"), child_grade = str(form, "child_grade"), notes = str(form, "notes");
   if (!SESSION_MINUTES[type] || !["in_home", "online"].includes(format)) return { ok: false, error: "Pick a session type and format." };
   if (!parent_name || !child_name || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(parent_email)) return { ok: false, error: "Please add your name, a valid email and your child's first name." };
+  const suggestion = emailTypo(parent_email);
+  if (suggestion) return { ok: false, error: `Please check your email address. Did you mean ${suggestion}? Lindsay's confirmation goes to this address.` };
 
   // Re-check the slot server side against live rules and busy times so two families can't take the same hour.
   const [{ data: rules }, { data: busy }] = await Promise.all([
@@ -96,9 +110,11 @@ export async function decideBooking(form: FormData): Promise<Result> {
   const { error } = await supabase.from("bookings").update({ status }).eq("id", id);
   if (error) return { ok: false, error: error.message };
   const when = fmtDateTime(new Date(b.starts_at));
-  if (status === "confirmed") await emailBookingConfirmed({ parent_name: b.parent_name, parent_email: b.parent_email, child_name: b.child_name, when, type: SESSION_LABEL[b.type], format: FORMAT_LABEL[b.format], video_room: b.video_room });
-  if (status === "declined") await emailBookingDeclined({ parent_name: b.parent_name, parent_email: b.parent_email, child_name: b.child_name, when, message: message || undefined });
+  let sent: boolean | null = null;
+  if (status === "confirmed") sent = await emailBookingConfirmed({ parent_name: b.parent_name, parent_email: b.parent_email, child_name: b.child_name, when, type: SESSION_LABEL[b.type], format: FORMAT_LABEL[b.format], video_room: b.video_room });
+  if (status === "declined") sent = await emailBookingDeclined({ parent_name: b.parent_name, parent_email: b.parent_email, child_name: b.child_name, when, message: message || undefined });
   revalidatePath("/admin"); revalidatePath("/admin/bookings"); revalidatePath("/portal");
+  if (sent === false) return { ok: false, error: `Saved as ${status}, but the email to ${b.parent_email} could not be sent. Please contact ${b.parent_name} directly.` };
   return { ok: true };
 }
 

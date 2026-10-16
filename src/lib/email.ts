@@ -19,14 +19,16 @@ function wrap(title: string, body: string) {
 </div>`;
 }
 
-async function send(to: string | string[], subject: string, html: string) {
+/** Returns true when the mail service accepted the message (delivery itself is confirmed later by Resend). */
+async function send(to: string | string[], subject: string, html: string): Promise<boolean> {
   const r = client();
-  if (!r) { console.warn("[email] RESEND_API_KEY not set; would send:", subject, "to", to); return; }
+  if (!r) { console.warn("[email] RESEND_API_KEY not set; would send:", subject, "to", to); return false; }
   try {
     const { data, error } = await r.emails.send({ from: FROM, to, subject, html });
-    if (error) console.error("[email] rejected:", subject, "->", to, JSON.stringify(error));
-    else console.log("[email] sent:", subject, "->", to, data?.id);
-  } catch (e) { console.error("[email] failed", subject, e); }
+    if (error) { console.error("[email] rejected:", subject, "->", to, JSON.stringify(error)); return false; }
+    console.log("[email] sent:", subject, "->", to, data?.id);
+    return true;
+  } catch (e) { console.error("[email] failed", subject, e); return false; }
 }
 
 export async function emailBookingRequested(b: { parent_name: string; parent_email: string; child_name: string; child_grade: string; when: string; type: string; format: string; notes?: string | null }) {
@@ -41,13 +43,13 @@ export async function emailBookingRequested(b: { parent_name: string; parent_ema
 
 export async function emailBookingConfirmed(b: { parent_name: string; parent_email: string; child_name: string; when: string; type: string; format: string; video_room?: string | null }) {
   const link = b.video_room ? `<p>Your session link: <a href="${SITE}/room/${b.video_room}">${SITE}/room/${b.video_room}</a><br>Open it a few minutes early on a laptop or tablet. The tutoring room has the video call and a shared whiteboard.</p>` : `<p>Lindsay will come to you. If anything changes, reply to this email.</p>`;
-  await send(b.parent_email, `Confirmed: ${b.child_name} on ${b.when}`, wrap("You're confirmed", `
+  return send(b.parent_email, `Confirmed: ${b.child_name} on ${b.when}`, wrap("You're confirmed", `
     <p>${b.type} for <b>${b.child_name}</b> on <b>${b.when}</b>, ${b.format.toLowerCase()}.</p>${link}
     <p>Sign in to the parent portal any time to see upcoming sessions and briefings: <a href="${SITE}/portal">${SITE}/portal</a></p>`));
 }
 
 export async function emailBookingDeclined(b: { parent_name: string; parent_email: string; child_name: string; when: string; message?: string }) {
-  await send(b.parent_email, `About your request for ${b.when}`, wrap("That time didn't work", `
+  return send(b.parent_email, `About your request for ${b.when}`, wrap("That time didn't work", `
     <p>Lindsay can't take ${b.child_name} at ${b.when}. ${b.message ?? "Please pick another open time and she will confirm it right away."}</p>
     <p><a href="${SITE}/book" style="background:#1f3764;color:#fff;padding:10px 18px;border-radius:999px;text-decoration:none">See open times</a></p>`));
 }
